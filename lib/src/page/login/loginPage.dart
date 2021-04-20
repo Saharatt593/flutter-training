@@ -9,91 +9,106 @@ class LoginPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Container(
-            decoration: BoxDecoration(
-                gradient: BackGroundTheme.gradient),
+            decoration: BoxDecoration(gradient: BackGroundTheme.gradient),
           ),
           SingleChildScrollView(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              SizedBox(
-                height: 48,
-              ),
-              Image.asset(
-                "assets/images/cdgs_logo.png",
-                width: 200,
-              ),
-              Stack(
-                alignment: Alignment.bottomCenter,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Card(
-                    margin: const EdgeInsets.only(
-                      top: 22,
-                      bottom: 24,
-                      right: 22,
-                      left: 22,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 22,
-                        bottom: 62,
-                        right: 22,
-                        left: 22,
-                      ),
-                      child: Column(
-                        children: [
-                          TextField(
-                            decoration: InputDecoration(
-                                hintText: "login",
-                                labelText: "username",
-                                icon: Icon(Icons.person),
-                                border: InputBorder.none),
-                          ),
-                          Divider(
-                            height: 22,
-                            indent: 22,
-                            endIndent: 22,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                                labelText: "password",
-                                icon: Icon(Icons.lock),
-                                border: InputBorder.none),
-                          )
-                        ],
-                      ),
-                    ),
+                  SizedBox(
+                    height: 48,
                   ),
-                  Container(
-                    decoration: _boxDecoration(),
-                    width: 280,
-                    height: 52,
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Login",
-                          style:
-                              TextStyle(color: Colors.white,fontSize: 22, fontWeight: FontWeight.bold),
-                        )),
-                  )
-                ],
-              ),
-              Text("Login button"),
-              Text("forget button"),
-              Text("sso"),
-            ]),
+                  Image.asset(
+                    "assets/images/cdgs_logo.png",
+                    width: 200,
+                  ),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Card(
+                        margin: const EdgeInsets.only(
+                          top: 22,
+                          bottom: 24,
+                          right: 22,
+                          left: 22,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 22,
+                            bottom: 62,
+                            right: 22,
+                            left: 22,
+                          ),
+                          child: Column(
+                            children: [
+                              TextField(
+                                decoration: InputDecoration(
+                                    hintText: "login",
+                                    labelText: "username",
+                                    icon: Icon(Icons.person),
+                                    border: InputBorder.none),
+                              ),
+                              Divider(
+                                height: 22,
+                                indent: 22,
+                                endIndent: 22,
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                    labelText: "password",
+                                    icon: Icon(Icons.lock),
+                                    border: InputBorder.none),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: _boxDecoration(),
+                        width: 280,
+                        height: 52,
+                        child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      )
+                    ],
+                  ),
+                  _buildTextButton("Forger Password", onPressed: () {}),
+                  Text("forget button"),
+                  _buildTextButton("register", onPressed: () {}),
+                ]),
           )
         ],
       ),
     );
   }
+
+  Container _buildTextButton(String text, {VoidCallback onPressed}) {
+    return Container(
+      child: TextButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.white70),
+          )),
+    );
+  }
+
   BoxDecoration _boxDecoration() {
     final gradientStart = BackGroundTheme().gradientStart;
     final gradientEnd = BackGroundTheme().gradientEnd;
 
     final boxShadowItem = (Color color) => BoxShadow(
-      color: color,
-      offset: Offset(1.0, 6.0),
-      blurRadius: 20.0,
-    );
+          color: color,
+          offset: Offset(1.0, 6.0),
+          blurRadius: 20.0,
+        );
 
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(15.0)),
