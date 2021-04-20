@@ -82,7 +82,7 @@ class LoginPage extends StatelessWidget {
                               final userName = _userController.text;
                               final password = _passwordController.text;
                               if (userName == "aa" && password == "aa") {
-                               Navigator.pushNamed(context, AppRount.homeRount);
+                               Navigator.pushReplacementNamed(context, AppRount.homeRount);
                               }else{
                                 print("No");
                               }
