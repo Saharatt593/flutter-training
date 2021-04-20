@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/conf/appRount.dart';
+import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,6 +59,7 @@ class CommonDrawer extends StatelessWidget {
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage("assets/images/cdgs_logo.png"),
             ),
+            decoration: BoxDecoration(gradient: BackGroundTheme.gradient),
           ),
           Spacer(),
           ListTile(
