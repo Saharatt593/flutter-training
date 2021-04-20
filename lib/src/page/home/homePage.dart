@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/src/conf/appRount.dart';
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -18,10 +18,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      drawer: CommonDrawer(),
       body: Center(
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -39,6 +38,38 @@ class _HomePageState extends State<HomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class CommonDrawer extends StatelessWidget {
+  const CommonDrawer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text('Name'),
+            accountEmail: Text('Email'),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage("assets/images/cdgs_logo.png"),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AppRount.loginRount, (route) => false);
+            },
+            leading: Icon(Icons.exit_to_app),
+            title: Text("Logout"),
+          )
+        ],
+      ),
     );
   }
 }
