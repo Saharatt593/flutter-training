@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
+import 'package:flutter_app2/src/viewmodels/ssoViewmodel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -80,7 +82,19 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   _buildTextButton("Forger Password", onPressed: () {}),
-                  Text("forget button"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: SSOViewModel()
+                            .item
+                            .map((e) => FloatingActionButton(
+                                  onPressed: e.onPressed,
+                                  child: FaIcon(e.icon),
+                                  backgroundColor: e.backgroundColor,
+                                ))
+                            .toList()),
+                  ),
                   _buildTextButton("register", onPressed: () {}),
                 ]),
           )
