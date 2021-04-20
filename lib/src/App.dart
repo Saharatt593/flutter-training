@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/src/conf/appRount.dart';
 import 'package:flutter_app2/src/page/login/loginPage.dart';
 
 class App extends StatelessWidget {
@@ -6,7 +7,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      routes: AppRount().rount,
+      // debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
 

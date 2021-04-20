@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/src/conf/appRount.dart';
 import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
 import 'package:flutter_app2/src/viewmodels/ssoViewmodel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatelessWidget {
+  final _userController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +48,8 @@ class LoginPage extends StatelessWidget {
                           child: Column(
                             children: [
                               TextField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: _userController,
                                 decoration: InputDecoration(
                                     hintText: "login",
                                     labelText: "username",
@@ -56,6 +62,8 @@ class LoginPage extends StatelessWidget {
                                 endIndent: 22,
                               ),
                               TextField(
+                                obscureText: true,
+                                controller: _passwordController,
                                 decoration: InputDecoration(
                                     labelText: "password",
                                     icon: Icon(Icons.lock),
@@ -70,7 +78,15 @@ class LoginPage extends StatelessWidget {
                         width: 280,
                         height: 52,
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final userName = _userController.text;
+                              final password = _passwordController.text;
+                              if (userName == "aa" && password == "aa") {
+                               Navigator.pushNamed(context, AppRount.homeRount);
+                              }else{
+                                print("No");
+                              }
+                            },
                             child: Text(
                               "Login",
                               style: TextStyle(
@@ -82,19 +98,7 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   _buildTextButton("Forger Password", onPressed: () {}),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: SSOViewModel()
-                            .item
-                            .map((e) => FloatingActionButton(
-                                  onPressed: e.onPressed,
-                                  child: FaIcon(e.icon),
-                                  backgroundColor: e.backgroundColor,
-                                ))
-                            .toList()),
-                  ),
+                  SSoButton(),
                   _buildTextButton("register", onPressed: () {}),
                 ]),
           )
@@ -139,6 +143,30 @@ class LoginPage extends StatelessWidget {
         end: const FractionalOffset(1.0, 1.0),
         stops: [0.0, 1.0],
       ),
+    );
+  }
+}
+
+class SSoButton extends StatelessWidget {
+  const SSoButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 22),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: SSOViewModel()
+              .item
+              .map((e) => FloatingActionButton(
+                    heroTag: e.backgroundColor.toString(),
+                    onPressed: e.onPressed,
+                    child: FaIcon(e.icon),
+                    backgroundColor: e.backgroundColor,
+                  ))
+              .toList()),
     );
   }
 }
