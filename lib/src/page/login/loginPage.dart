@@ -19,10 +19,12 @@ class LoginPage extends StatelessWidget {
                     stops: [0.0, 0.5])),
           ),
           Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/images/cdgs_logo.png"),
+                SizedBox(height: 48,),
+                Image.asset("assets/images/cdgs_logo.png",
+                width: 200,),
                 Text("Header"),
                 Text("Login"),
                 Text("Login button"),
