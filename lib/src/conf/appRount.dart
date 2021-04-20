@@ -9,7 +9,7 @@ class AppRount{
   get rount =>_rount;
 
   final _rount = <String,WidgetBuilder>{
-    homeRount:(context) => HomePage(title:"helloHomePage"),
+    homeRount:(context) => HomePage(),
     loginRount:(context) => LoginPage(),
   };
 }
