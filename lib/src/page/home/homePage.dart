@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/conf/appRount.dart';
 import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
+import 'package:flutter_app2/src/viewmodels/menuViewmodel.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,6 +62,19 @@ class CommonDrawer extends StatelessWidget {
             ),
             decoration: BoxDecoration(gradient: BackGroundTheme.gradient),
           ),
+          ...MenuViewModel()
+              .items
+              .map((e) => ListTile(
+                    onTap: () {
+                      e.onTap(context);
+                    },
+                    leading: Icon(
+                      e.icon,
+                      color: e.iconColor,
+                    ),
+                    title: Text(e.title),
+                  ))
+              .toList(),
           Spacer(),
           ListTile(
             onTap: () {
