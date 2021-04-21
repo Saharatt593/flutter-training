@@ -81,25 +81,25 @@ Future<String> addProduct(File imageFile, ProductResponse product) async {
   throw Exception('Network failed');
 }
 
-// Future<String> editProduct(File imageFile, Product product) async {
-//   FormData data = FormData.fromMap({
-//     'name': product.name,
-//     'price': product.price,
-//     'stock': product.stock,
-//     if (imageFile != null)
-//       'photo': await MultipartFile.fromFile(
-//         imageFile.path,
-//         contentType: MediaType('image', 'jpg'),
-//       ),
-//   });
-//
-//   final response = await _dio.put('${API.PRODUCT}/${product.id}', data: data);
-//
-//   if (response.statusCode == 200) {
-//     return 'Edit Successfully';
-//   }
-//   throw Exception('Network failed');
-// }
+Future<String> editProduct(File imageFile, ProductResponse product) async {
+  FormData data = FormData.fromMap({
+    'name': product.name,
+    'price': product.price,
+    'stock': product.stock,
+    if (imageFile != null)
+      'photo': await MultipartFile.fromFile(
+        imageFile.path,
+        contentType: MediaType('image', 'jpg'),
+      ),
+  });
+
+  final response = await _dio.put('${API.PRODUCT}/${product.id}', data: data);
+
+  if (response.statusCode == 200) {
+    return 'Edit Successfully';
+  }
+  throw Exception('Network failed');
+}
 //
 // Future<String> deleteProduct(int id) async {
 //   final response = await _dio.delete('${API.PRODUCT}/$id');

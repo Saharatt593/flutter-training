@@ -38,6 +38,12 @@ class _ManagementPageState extends State<ManagementPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Object productData = ModalRoute.of(context).settings.arguments;
+    if(productData is ProductResponse) {
+      _product = productData;
+      _editMode = true;
+    }
     return Scaffold(
       appBar: _buildAppBar(),
       body: SingleChildScrollView(
@@ -92,6 +98,7 @@ class _ManagementPageState extends State<ManagementPage> {
 
   TextFormField _buildNameInput() =>
       TextFormField(
+        initialValue: _product.name ?? "",
         decoration: inputStyle(label: "name"),
         onSaved: (String value) {
           _product.name = value;
@@ -100,6 +107,7 @@ class _ManagementPageState extends State<ManagementPage> {
 
   TextFormField _buildPriceInput() =>
       TextFormField(
+        initialValue: _product.price == null ? '0':_product.price.toString(),
         decoration: inputStyle(label: "price"),
         keyboardType: TextInputType.number,
         onSaved: (String value) {
@@ -109,6 +117,7 @@ class _ManagementPageState extends State<ManagementPage> {
 
   TextFormField _buildStockInput() =>
       TextFormField(
+        initialValue: _product.stock == null ? '0':_product.stock.toString(),
         decoration: inputStyle(label: "stock"),
         keyboardType: TextInputType.number,
         onSaved: (String value) {
@@ -125,21 +134,34 @@ class _ManagementPageState extends State<ManagementPage> {
               _form.currentState.save();
               FocusScope.of(context).requestFocus(FocusNode());
               if (_editMode) {
-                //todo
+                try {
+                  final message =
+                  await NetworkService().editProduct(null, _product);
+                  Navigator.pop(context);
+                  showAlertBar(
+                    message,
+                  );
+                }catch (ex){
+                  showAlertBar(
+                    ex.toString(),
+                    color: Colors.red,
+                    icon: FontAwesomeIcons.cross,
+                  );
+                }
               } else {
                 try {
                   final message =
                   await NetworkService().addProduct(null, _product);
-                  // showAlertBar(
-                  //   message,
-                  // );
                   Navigator.pop(context);
+                  showAlertBar(
+                    message,
+                  );
                 } catch (ex) {
-                  // showAlertBar(
-                  //   ex.toString(),
-                  //   color: Colors.red,
-                  //   icon: FontAwesomeIcons.cross,
-                  // );
+                  showAlertBar(
+                    ex.toString(),
+                    color: Colors.red,
+                    icon: FontAwesomeIcons.cross,
+                  );
                 }
               }
             },

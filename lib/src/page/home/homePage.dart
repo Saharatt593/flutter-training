@@ -46,12 +46,13 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 4,
               ),
               itemBuilder: (context, item) => LayoutBuilder(
-                  builder: (context, constraint) => ShopListItem(
-                      constraint.maxHeight, productList[item],
-                      press: () {
-
-
-
+                  builder: (context, constraint) =>
+                      ShopListItem(constraint.maxHeight, productList[item],
+                          press: () async {
+                        await Navigator.pushNamed(
+                            context, AppRount.managementRount,
+                            arguments: productList[item]);
+                        setState(() {});
                       })),
               itemCount: 5,
               // itemCount: productList.length,
