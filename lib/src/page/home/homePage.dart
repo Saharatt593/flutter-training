@@ -21,9 +21,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       drawer: CommonDrawer(),
-      appBar: AppBar(
-          title: Text("homePage")
-      ),
+      appBar: AppBar(title: Text("homePage")),
       body: FutureBuilder<List<ProductResponse>>(
         future: NetworkService().productAll(),
         builder: (context, snapshort) {
@@ -38,9 +36,7 @@ class _HomePageState extends State<HomePage> {
           final productList = snapshort.data;
           return RefreshIndicator(
             onRefresh: () async {
-              setState(() {
-
-              });
+              setState(() {});
             },
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -49,11 +45,14 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 4,
                 crossAxisSpacing: 4,
               ),
-              itemBuilder: (context, item) =>
-                  LayoutBuilder(
-                      builder: (context, constraint) =>
-                          ShopListItem(constraint.maxHeight, productList[item],
-                              press: () {})),
+              itemBuilder: (context, item) => LayoutBuilder(
+                  builder: (context, constraint) => ShopListItem(
+                      constraint.maxHeight, productList[item],
+                      press: () {
+
+
+
+                      })),
               itemCount: 5,
               // itemCount: productList.length,
             ),
@@ -61,8 +60,9 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-            Navigator.pushNamed(context, AppRount.managementRount);
+        onPressed: () async {
+          await Navigator.pushNamed(context, AppRount.managementRount);
+          setState(() {});
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -91,23 +91,22 @@ class CommonDrawer extends StatelessWidget {
           ),
           ...MenuViewModel()
               .items
-              .map((e) =>
-              ListTile(
-                onTap: () {
-                  e.onTap(context);
-                },
-                leading: Icon(
-                  e.icon,
-                  color: e.iconColor,
-                ),
-                title: Text(e.title),
-              ))
+              .map((e) => ListTile(
+                    onTap: () {
+                      e.onTap(context);
+                    },
+                    leading: Icon(
+                      e.icon,
+                      color: e.iconColor,
+                    ),
+                    title: Text(e.title),
+                  ))
               .toList(),
           Spacer(),
           ListTile(
             onTap: () async {
               SharedPreferences tokenPreferences =
-              await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
               await tokenPreferences.remove(AppSetting.tokenSetting);
               await tokenPreferences.remove(AppSetting.usernameString);
               Navigator.pushNamedAndRemoveUntil(
@@ -148,8 +147,7 @@ class ShopListItem extends StatelessWidget {
     );
   }
 
-  Padding _buildInfo() =>
-      Padding(
+  Padding _buildInfo() => Padding(
         padding: EdgeInsets.all(6),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,16 +187,16 @@ class ShopListItem extends StatelessWidget {
       children: [
         productImage != null && productImage.isNotEmpty
             ? Image.network(
-          "${API.IMAGE_URL}/${productImage}",
-          height: height,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        )
+                "${API.IMAGE_URL}/${productImage}",
+                height: height,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              )
             : Image.asset(
-          Asset.noPhotoImage,
-          height: height,
-          width: double.infinity,
-        ),
+                Asset.noPhotoImage,
+                height: height,
+                width: double.infinity,
+              ),
         if (product.stock <= 0)
           Positioned(
             top: 1,
