@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       drawer: CommonDrawer(),
+      appBar: AppBar(
+        title: Text("homePage")
+      ),
       body: FutureBuilder<List<ProductResponse>>(
         future: NetworkService().productAll(),
         builder: (context, snapshort) {
@@ -33,18 +36,25 @@ class _HomePageState extends State<HomePage> {
             return Text(snapshort.error.toString());
           }
           final productList = snapshort.data;
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
+          return RefreshIndicator(
+            onRefresh: () async{
+              setState(() {
+
+              });
+            },
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 4,
+              ),
+              itemBuilder: (context, item) => LayoutBuilder(
+                  builder: (context, constraint) =>
+                      ShopListItem(constraint.maxHeight,productList[item], press: () {})),
+              itemCount: 5,
+              // itemCount: productList.length,
             ),
-            itemBuilder: (context, item) => LayoutBuilder(
-                builder: (context, constraint) =>
-                    ShopListItem(constraint.maxHeight,productList[item], press: () {})),
-            itemCount: 5,
-            // itemCount: productList.length,
           );
         },
       ),
