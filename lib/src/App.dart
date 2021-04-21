@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/conf/appRount.dart';
+import 'package:flutter_app2/src/constants/appSetting.dart';
+import 'package:flutter_app2/src/page/home/homePage.dart';
 import 'package:flutter_app2/src/page/login/loginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,7 +17,23 @@ class App extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home:FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder: (context,snapshort){
+          if(!snapshort.hasData){
+            return Container(
+              color: Colors.white,
+            );
+
+          }
+          final token = snapshort.data.getString(AppSetting.tokenSetting) ?? "";
+          if(token.isNotEmpty){
+            return HomePage();
+          }else{
+            return LoginPage();
+          }
+        },
+      ),
     );
   }
 }

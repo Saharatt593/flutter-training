@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/conf/appRount.dart';
+import 'package:flutter_app2/src/constants/appSetting.dart';
+import 'package:flutter_app2/src/constants/asset.dart';
 import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
 import 'package:flutter_app2/src/viewmodels/ssoViewmodel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   final _userController = TextEditingController();
@@ -25,7 +28,7 @@ class LoginPage extends StatelessWidget {
                     height: 48,
                   ),
                   Image.asset(
-                    "assets/images/cdgs_logo.png",
+                    Asset.logoImage,
                     width: 200,
                   ),
                   Stack(
@@ -78,10 +81,14 @@ class LoginPage extends StatelessWidget {
                         width: 280,
                         height: 52,
                         child: TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               final userName = _userController.text;
                               final password = _passwordController.text;
                               if (userName == "aa" && password == "aa") {
+                                SharedPreferences tokenPreferences  = await SharedPreferences.getInstance();
+                                var token = "asdasdasd";
+                                await tokenPreferences.setString(AppSetting.tokenSetting, token);
+                                await tokenPreferences.setString(AppSetting.usernameString, userName);
                                Navigator.pushReplacementNamed(context, AppRount.homeRount);
                               }else{
                                 print("No");

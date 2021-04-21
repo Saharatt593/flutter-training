@@ -3,7 +3,8 @@ import 'package:flutter_app2/src/conf/appRount.dart';
 import 'package:flutter_app2/src/page/login/backGroundTheme.dart';
 import 'package:flutter_app2/src/viewmodels/menuViewmodel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app2/src/constants/appSetting.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -59,9 +60,14 @@ class CommonDrawer extends StatelessWidget {
               .toList(),
           Spacer(),
           ListTile(
-            onTap: () {
+            onTap: () async {
+              SharedPreferences tokenPreferences  = await SharedPreferences.getInstance();
+              await tokenPreferences.remove(AppSetting.tokenSetting);
+              await tokenPreferences.remove(AppSetting.usernameString);
               Navigator.pushNamedAndRemoveUntil(
                   context, AppRount.loginRount, (route) => false);
+
+
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Logout"),
