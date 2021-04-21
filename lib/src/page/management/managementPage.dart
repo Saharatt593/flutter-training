@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/src/modul/productResponse.dart';
+import 'package:flutter_app2/src/page/management/productImage.dart';
 import 'package:flutter_app2/src/service/network.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,11 @@ class _ManagementPageState extends State<ManagementPage> {
   //     }
   //   });
   // }
+
+  callback(File image){
+    _image = image;
+  }
+
   @override
   void initState() {
     _editMode = false;
@@ -71,7 +77,8 @@ class _ManagementPageState extends State<ManagementPage> {
                       flex: 1,
                     )
                   ],
-                )
+                ),
+                ProductImage(callback, image: _product.image)
               ],
             ),
           ),
@@ -136,7 +143,7 @@ class _ManagementPageState extends State<ManagementPage> {
               if (_editMode) {
                 try {
                   final message =
-                  await NetworkService().editProduct(null, _product);
+                  await NetworkService().editProduct(_image, _product);
                   Navigator.pop(context);
                   showAlertBar(
                     message,
@@ -151,7 +158,7 @@ class _ManagementPageState extends State<ManagementPage> {
               } else {
                 try {
                   final message =
-                  await NetworkService().addProduct(null, _product);
+                  await NetworkService().addProduct(_image, _product);
                   Navigator.pop(context);
                   showAlertBar(
                     message,
