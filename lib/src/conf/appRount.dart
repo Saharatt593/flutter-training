@@ -7,6 +7,7 @@ class AppRount{
   static const homeRount ="home";
   static const loginRount ="login";
   static const managementRount ="management";
+  static const googleMapPage ="googleMapPage";
 
   get rount =>_rount;
 
@@ -14,5 +15,6 @@ class AppRount{
     homeRount:(context) => HomePage(),
     loginRount:(context) => LoginPage(),
     managementRount:(context) => ManagementPage(),
+    googleMapPage:(context) => GoogleMapPage(),
   };
 }
