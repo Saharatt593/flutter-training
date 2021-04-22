@@ -41,5 +41,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>SLocationWhenInUseUsageDescription</key>
+    <string>ขอใช้หน่อย</string>
 </dict>
 </plist>
